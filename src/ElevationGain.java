@@ -3,10 +3,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 public class ElevationGain {
+
+    // execute program
     public static void main(String[] args) {
         startProgram();
     }
 
+    // terminate or restart program
     private static void startProgram() {
         System.out.println("""
                 HIKING 101 GAME
@@ -32,6 +35,8 @@ public class ElevationGain {
         }
     }
 
+    /* receives user inputs of sequence of numbers, each input equating a "hike". Each integer represents an
+       elevation while hiking. The index of the integer presents how many meters traveled.  */
     private static void program() {
         Scanner sc = new Scanner(System.in);
 
@@ -58,14 +63,18 @@ public class ElevationGain {
                 }
             }
         }
+
+        // parsing our result of the index when each benchmark is hit if ever hit
         for(List<Integer> input : allHikes) {
             displayArray(benchmarkChecker(input));
         }
     }
 
+    /* iterates through our input and finds index when our elevation is greater than or equal to one of the benchmarks
+      that being 16, 32, and 64. -1 is placed in the position of benchmark if never hit */
     private static int[] benchmarkChecker(List<Integer> hike) {
-        int[] benchmarks = new int[3];
-        Arrays.fill(benchmarks, -1);
+        int[] benchmark_outputs = new int[3];
+        Arrays.fill(benchmark_outputs, -1);
 
         int currentBenchmark = 0;
         int totalElevation = 0;
@@ -74,15 +83,16 @@ public class ElevationGain {
             if(hike.get(i + 1) > hike.get(i)) {
                 totalElevation += hike.get(i + 1) - hike.get(i);
 
-                if(totalElevation > 16 * Math.pow(2, currentBenchmark)) {
-                    benchmarks[currentBenchmark] = i + 1;
+                if(totalElevation >= 16 * Math.pow(2, currentBenchmark)) {
+                    benchmark_outputs[currentBenchmark] = i + 1;
                     currentBenchmark++;
                 }
             }
         }
-        return benchmarks;
+        return benchmark_outputs;
     }
 
+    // 
     private static void displayArray(int[] array) {
         for (int j : array) {
             System.out.print(j + " ");
