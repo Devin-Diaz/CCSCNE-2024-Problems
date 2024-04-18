@@ -1,3 +1,27 @@
+/*
+    TOTAL ELEVATION GAIN PROGRAM:
+
+    Given multiple inputs of a sequence of integers. Each sequence of integers represents a hike. Each integer in the
+    sequence represents an elevation as the ike progresses. The index of each integer represents how many meters
+    the hiker has traveled. The goal is to find how many meters the hiker has traveled when he is greater than or
+    equal to a certain elevation. These certain elevations are benchmarks of 16, 32, and 64. You can only pass a
+    benchmark once. Sequence of integers will always be positive integers and you can never lose elevation. If
+    a hiker never passes a certain benchmark, a -1 is returned for that position in the output. Note that -1 at the
+    end of each sequence of numbers denotes the end of a hike. -1 on its own means termination of input.
+
+    EXAMPLE:
+
+    INPUT:
+    0 3 6 3 6 9 6 9 12 15 18 18 15 12 18 21 24 -1
+    0 -1
+   -1
+
+    OUTPUT:
+    8 16 -1
+   -1 -1 -1
+
+*/
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +36,7 @@ public class ElevationGain {
     // terminate or restart program
     private static void startProgram() {
         System.out.println("""
-                HIKING 101 GAME
+                TOTAL ELEVATION GAIN
                 .
                 .
                 """);
@@ -26,11 +50,11 @@ public class ElevationGain {
             String userResponse = sc.next();
 
             if(userResponse.equalsIgnoreCase("n")) {
-                System.out.println("THANKS FOR PLAYING!");
+                System.out.println("**TERMINATED PROGRAM**");
                 programState = false;
             }
             else {
-                System.out.println("LETS GO AGAIN!");
+                System.out.println("RESTARTING...");
             }
         }
     }
