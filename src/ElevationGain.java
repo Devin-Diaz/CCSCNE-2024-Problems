@@ -92,7 +92,7 @@ public class ElevationGain {
         return benchmark_outputs;
     }
 
-    // 
+    // displays integer arrays contents in a single spaced line
     private static void displayArray(int[] array) {
         for (int j : array) {
             System.out.print(j + " ");
