@@ -21,20 +21,22 @@
    -1 -1 -1
 
 */
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 public class ElevationGain {
 
-    // execute program
     public static void main(String[] args) {
-        startProgram();
+        runApplicationLoop();
     }
 
-    // terminate or restart program
-    private static void startProgram() {
+
+    /**
+     * The introduction of the program
+     * logic that prompts the user whether they want to continue executing program
+     */
+    private static void runApplicationLoop() {
         System.out.println("""
                 TOTAL ELEVATION GAIN
                 .
@@ -45,29 +47,53 @@ public class ElevationGain {
         boolean programState = true;
 
         while(programState) {
-            program();
-            System.out.println("DO YOU WANT TO RUN PROGRAM AGAIN? (y/n) ");
-            String userResponse = sc.next();
+            processHikes();
+            String userResponse = getUserInput(sc);
 
             if(userResponse.equalsIgnoreCase("n")) {
-                System.out.println("**TERMINATED PROGRAM**");
+                System.out.println("\n" + "**TERMINATED PROGRAM**");
                 programState = false;
             }
             else {
-                System.out.println("RESTARTING...");
+                System.out.println("\n" + "RESTARTING...");
             }
         }
     }
 
-    /* receives user inputs of sequence of numbers, each input equating a "hike". Each integer represents an
-       elevation while hiking. The index of the integer presents how many meters traveled.  */
-    private static void program() {
+
+    /**
+     * @param sc from runApplicationLoop() method to ensure that a user enters yes or no for program state
+     * @return String that is y or n (ignore casing)
+     */
+    private static String getUserInput(Scanner sc) {
+        String userResponse;
+
+        while(true) {
+            System.out.print("\n" + "DO YOU WANT TO RUN PROGRAM AGAIN? (y/n): ");
+            userResponse = sc.next();
+            if(userResponse.equalsIgnoreCase("y") || userResponse.equalsIgnoreCase("n")) {
+                break;
+            }
+            else {
+                System.out.println("\n" + "***Invalid input. Please enter 'y' for yes or 'n' for no.***");
+            }
+        }
+        return userResponse;
+    }
+
+
+    /**
+     * Processes user input for multiple hikes and calculates benchmark indices
+     * Each line of input represents a hike with a series of elevation gains
+     * This function reads the input until a single -1 is encountered singling the end
+     */
+    private static void processHikes() {
         Scanner sc = new Scanner(System.in);
 
         List<List<Integer>> allHikes = new ArrayList<>();
         List<Integer> hike = new ArrayList<>();
 
-        System.out.print("ADD A SEQUENCE OF NUMBERS: ");
+        System.out.print("ADD A SEQUENCE OF NUMBERS (-1 to quit): ");
 
         while(sc.hasNext()) {
             String hikeInput = sc.nextLine();
@@ -80,23 +106,35 @@ public class ElevationGain {
                 if(number != -1) {
                     hike.add(number);
                 }
-                else {
-                    allHikes.add(hike);
-                    hike = new ArrayList<>();
-                    System.out.print("ADD A SEQUENCE OF NUMBERS: ");
-                }
             }
+            allHikes.add(hike);
+            hike = new ArrayList<>();
+            System.out.print("ADD A SEQUENCE OF NUMBERS: ");
+
         }
 
-        // parsing our result of the index when each benchmark is hit if ever hit
-        for(List<Integer> input : allHikes) {
-            displayArray(benchmarkChecker(input));
+        processAndDisplayHikes(allHikes);
+    }
+
+
+    /**
+     * @param allHikes 2-D ArrayList of integers that contain each sequence of hikes
+     * calculates and displays the index of when benchmark is surpassed for each hike
+     * If benchmark is never passed a -1 is placed in its spot index spot
+     */
+    private static void processAndDisplayHikes(List<List<Integer>> allHikes) {
+        for(List<Integer> hike : allHikes) {
+            displayArray(calculateBenchmarkIndices(hike));
         }
     }
 
-    /* iterates through our input and finds index when our elevation is greater than or equal to one of the benchmarks
-      that being 16, 32, and 64. -1 is placed in the position of benchmark if never hit */
-    private static int[] benchmarkChecker(List<Integer> hike) {
+
+    /**
+     * @param hike a sequence of integers that represent a hike
+     * @return an array of length 3. Each index representing when an elevation is greater than a benchmark
+     * -1 remains in index if elevation never passed benchmark of 16, 32, or 64
+     */
+    private static int[] calculateBenchmarkIndices(List<Integer> hike) {
         int[] benchmark_outputs = new int[3];
         Arrays.fill(benchmark_outputs, -1);
 
@@ -116,12 +154,15 @@ public class ElevationGain {
         return benchmark_outputs;
     }
 
-    // displays integer arrays contents in a single spaced line
+
+    /**
+     *  displays integer arrays contents in a single spaced line
+     */
     private static void displayArray(int[] array) {
+        System.out.print("RESULT: ");
         for (int j : array) {
             System.out.print(j + " ");
         }
-        System.out.println("\n");
     }
 
 }
