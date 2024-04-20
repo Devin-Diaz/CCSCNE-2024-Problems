@@ -1,4 +1,4 @@
-/*
+package elevation_gain_problem;/*
     TOTAL ELEVATION GAIN PROGRAM:
 
     Given multiple inputs of a sequence of integers. Each sequence of integers represents a hike. Each integer in the
@@ -106,6 +106,7 @@ public class ElevationGain {
                 if(number != -1) {
                     hike.add(number);
                 }
+                else break;
             }
             allHikes.add(hike);
             hike = new ArrayList<>();
@@ -120,7 +121,7 @@ public class ElevationGain {
     /**
      * @param allHikes 2-D ArrayList of integers that contain each sequence of hikes
      * calculates and displays the index of when benchmark is surpassed for each hike
-     * If benchmark is never passed a -1 is placed in its spot index spot
+     * If benchmark is never passed a -1 is placed in its spot
      */
     private static void processAndDisplayHikes(List<List<Integer>> allHikes) {
         for(List<Integer> hike : allHikes) {
