@@ -1,5 +1,7 @@
 package movie_marathon_problem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -7,11 +9,15 @@ public class MovieMarathon {
     public static final char DELIMITER = ';';
 
     public static void main(String[] args){
+        
+        List<List<Movie>> inputs = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
 
-        while (sc.hasNext()) {
+        while (sc.hasNextLine()) {
             String movieInput = sc.nextLine();
+
+            if (movieInput.isEmpty()) break;
 
             StringBuilder sb = new StringBuilder();
             char[] movieInputArray = movieInput.toCharArray();
@@ -52,7 +58,6 @@ public class MovieMarathon {
 
 
     }
-
 
 
 }
