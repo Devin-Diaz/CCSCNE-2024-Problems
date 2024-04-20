@@ -3,15 +3,15 @@ package movie_marathon_problem;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Movie object that will contain a title, duration, and list of references
+ * Movie object that will contain a title, duration, and list of references if any
  * Data parsed from user will be encapsulated into Movie object
+ * No private fields as I'm lazy and didn't want to make getter methods (hopefully Google doesn't see this)
  */
 public class Movie {
-    private String title;
-    private int duration;
-    private List<String> references;
+    public String title;
+    public int duration;
+    public List<String> references;
 
     public Movie(String title, int duration) {
         this.title = title;
