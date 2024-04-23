@@ -3,11 +3,8 @@ package movie_marathon_problem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Movie object that will contain a title, duration, and list of references if any
- * Data parsed from user will be encapsulated into Movie object
- * No private fields as I'm lazy and didn't want to make getter methods (hopefully Google doesn't see this)
- */
+/* Movie POJO, requires the following fields, String title, int duration, every time a Movie POJO is created,
+    an ArrayList is created with it, however whether it's full is optional since not all movies require references */
 public class Movie {
     public String title;
     public int duration;
@@ -19,6 +16,7 @@ public class Movie {
         this.references = new ArrayList<>();
     }
 
+    // Populates are empty ArrayList for Movie POJO assuming it contains references
     public void addReference(String reference) {
         references.add(reference);
     }
