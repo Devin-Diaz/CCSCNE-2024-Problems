@@ -23,9 +23,4 @@ public class Movie {
         references.add(reference);
     }
 
-    public String toString() {
-        return title +";" + duration + ";" + references;
-    }
-
-
 }
