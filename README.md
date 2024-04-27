@@ -12,3 +12,11 @@
 
 ## Elevation Gain:
 
+### Visual:
+![Elevation gain problem](assets/elevation_gain.png)
+
+### Output:
+![Elevation gain Output](assets/elevation_gain_output.png)
+
+
+
