@@ -18,5 +18,13 @@
 ### Output:
 ![Elevation gain Output](assets/elevation_gain_output.png)
 
+## Movie Marathon:
+
+### Visual:
+![Movie marathon problem](assets/movie_marathon.png)
+
+### Output:
+![Movie Marathon Output](assets/movie_marathon_output.png)
+
 
 
