@@ -6,7 +6,7 @@ import java.util.List;
 public class Group {
 
     public List<Member> members;
-    public List<String> messages;
+    public List<Message> messages;
 
     public Group() {
         members = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Group {
         members.add(member);
     }
 
-    public void addMessageToGroup(String message) {
+    public void addMessageToGroup(Message message) {
         messages.add(message);
     }
 
@@ -30,11 +30,11 @@ public class Group {
             sb.append(member).append("\n");
         }
         sb.append("Messages:\n");
-        for (String message : messages) {
+        for (Message message : messages) {
             sb.append(message).append("\n");
         }
 
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
 
 }
