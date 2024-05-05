@@ -10,7 +10,7 @@
 - Three In A Row
 - Square Loops
 
-# Problems link: https://ccscne.org/2024/contest_questions.pdf
+## Problems Link: https://ccscne.org/2024/contest_questions.pdf
 
 
 
