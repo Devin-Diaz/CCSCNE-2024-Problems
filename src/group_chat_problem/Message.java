@@ -1,5 +1,8 @@
 package group_chat_problem;
 
+/**
+ * Represents a message in the group chat with a sender and the message content.
+ */
 public class Message {
     public String sender;
     public String text;
@@ -8,10 +11,4 @@ public class Message {
         this.sender = sender;
         this.text = text;
     }
-
-    public String toString() {
-        return sender + ": " + text;
-    }
-
-
 }

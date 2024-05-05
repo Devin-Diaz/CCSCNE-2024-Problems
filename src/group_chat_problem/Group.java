@@ -3,38 +3,23 @@ package group_chat_problem;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a group chat, maintaining lists of members and their messages.
+ */
 public class Group {
-
-    public List<Member> members;
-    public List<Message> messages;
+    public List<Member> allMembers;
+    public List<Message> allMessages;
 
     public Group() {
-        members = new ArrayList<>();
-        messages = new ArrayList<>();
+        allMembers = new ArrayList<>();
+        allMessages = new ArrayList<>();
     }
 
     public void addMemberToGroup(Member member) {
-        members.add(member);
+        allMembers.add(member);
     }
-
     public void addMessageToGroup(Message message) {
-        messages.add(message);
-    }
-
-    public void displayGroup() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Group:\n");
-        sb.append("Members:\n");
-        for (Member member : members) {
-            sb.append(member).append("\n");
-        }
-        sb.append("Messages:\n");
-        for (Message message : messages) {
-            sb.append(message).append("\n");
-        }
-
-        System.out.println(sb);
+        allMessages.add(message);
     }
 
 }

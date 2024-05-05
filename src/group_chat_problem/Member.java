@@ -1,5 +1,8 @@
 package group_chat_problem;
 
+/**
+ * Represents a member of the group chat, including details like name, timezone, and temperature unit preference.
+ */
 public class Member {
     public String name;
     public int timezone;
@@ -10,9 +13,4 @@ public class Member {
         this.timezone = timezone;
         this.temperatureUnit = temperatureUnit;
     }
-
-    public String toString() {
-        return name + ";" + timezone + ";" + temperatureUnit;
-    }
-
 }
