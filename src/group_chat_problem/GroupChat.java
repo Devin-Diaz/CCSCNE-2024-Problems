@@ -1,52 +1,17 @@
 package group_chat_problem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class GroupChat {
     public static void main(String[] args) {
 
-        /* SUCCESSFULLY PARSED INPUTS
-        1
-        3
-        alice;-4;F
-        bob;-8;C
-        charlie;3;C
-        bob: brrr, it is only 5 degrees
-        charlie: it was that cold here at 3:30
-        bob: well it is 5:00 here
-        alice: bye
-
-
-         [ Groups:
-
-            [   Group:
-
-                Members:
-                [ alice;-4;F , bob;-8;C , charlie;3;C ]
-
-                Messages:
-                [ bob: brrr, it is only 5 degrees, charlie: it was that cold here at 3:30,
-                  bob: well it is 5:00 here, alice: bye
-                ]
-
-            ]
-
-         ]
-
-        */
-
-
         Scanner sc = new Scanner(System.in);
         ArrayList<Group> groups = new ArrayList<>();
 
-        // we know for sure # of cases is first and not be repeated thus:
         int numberOfTestCases = sc.nextInt();
         sc.nextLine();
-
-        // next we have number of members, note we will have different members for each test case
 
         for(int i = 0; i < numberOfTestCases; i++) {
             Group group = new Group();
@@ -54,7 +19,6 @@ public class GroupChat {
             int numberOfMembers = sc.nextInt();
             sc.nextLine();
 
-            // now we actually start receiving members
             for(int j = 0; j < numberOfMembers; j++) {
 
                 String memberInput = sc.nextLine();
@@ -75,20 +39,17 @@ public class GroupChat {
                 String[] parsedMessageData = messageInput.split(": ");
                 Message message = new Message(parsedMessageData[0], parsedMessageData[1]);
 
-
                 if(message.text.equals("bye")) {
                     group.addMessageToGroup(message);
                     break;
                 }
-
                 group.addMessageToGroup(message);
             }
             groups.add(group);
         }
 
-
         for(Group group : groups) {
-            System.out.println(doingConverts(group.members, group.messages));
+            displayOutput(doingConverts(group.members, group.messages));
         }
 
     }
@@ -96,66 +57,49 @@ public class GroupChat {
     public static List<String> doingConverts(List<Member> members, List<Message> messages) {
         List<String> output = new ArrayList<>();
 
-        int timezoneDictator = members.get(0).timezone;
-        String tempDictator = members.get(0).temperatureUnit;
+        int timezoneDictator = members.getFirst().timezone;
+        String tempDictator = members.getFirst().temperatureUnit;
 
         for(Message message : messages) {
             String[] parsedMessage = message.text.split("\\s");
 
             for(int i = 0; i < parsedMessage.length; i++) {
-
                 String[] furtherParsedMessage = parsedMessage[i].split(":");
 
-                if(furtherParsedMessage.length == 2) {
+                if(furtherParsedMessage.length == 2 && furtherParsedMessage[1].matches("\\d+")) {
+                    StringBuilder sb = new StringBuilder();
                     int time = Integer.parseInt(furtherParsedMessage[0]);
-
                     int newTime = time + timezoneDictator;
                     if(newTime <= 0) newTime += 12;
 
-                    String confirmedNewTime = String.valueOf(newTime);
-
-                    furtherParsedMessage[0] = confirmedNewTime;
-                    parsedMessage[i] = furtherParsedMessage[0];
-
-                    String str = String.join(", ", parsedMessage);
-                    output.add(str);
-                    break;
-
+                    sb.append(newTime).append(":").append(furtherParsedMessage[1]);
+                    parsedMessage[i] = sb.toString();
                 }
 
                 if(parsedMessage[i].equals("degrees")) {
-                    if(tempDictator.equals(verifyTempInformation(message.sender, members))) {
-                        output.add(message.text);
-                        break;
+                    int temp = Integer.parseInt(parsedMessage[i - 1]);
+                    double convertedTemp;
+
+                    if(tempDictator.equals("F") && !verifyTempInformation(message.sender, members).equals("F")) {
+                        convertedTemp = (double) 9 / 5 * temp + 32;
                     }
-
-                    if(tempDictator.equals("F")) {
-                        int temp = Integer.parseInt(parsedMessage[i - 1]);
-                        double answer = (double) 9 / 5 * temp + 32;
-                        String newTemp = Double.toString(answer);
-                        parsedMessage[i - 1] = newTemp;
-                        String str = String.join(", ", parsedMessage);
-
-                        output.add(str);
+                    else if(tempDictator.equals("C") && !verifyTempInformation(message.sender, members).equals("C")) {
+                        convertedTemp = (double) 5 / 9 * (temp - 32);
                     }
                     else {
-                        int temp = Integer.parseInt(parsedMessage[i - 1]);
-                        double answer = (double) 5 / 9 * (temp - 32);
-                        String newTemp = Double.toString(answer);
-                        parsedMessage[i - 1] = newTemp;
-                        String str = String.join(", ", parsedMessage);
-
-                        output.add(str);
+                        String newText = message.sender + message.text;
+                        output.add(newText);
+                        break;
                     }
+                    int finalTemp = (int)convertedTemp;
+                    parsedMessage[i - 1] = String.valueOf(finalTemp);
                 }
-
-                //if(parsedMessage[i].equals())
-
-
-
-
             }
 
+            String str = String.join(" ", parsedMessage);
+
+            String newText = message.sender + ": " + str;
+            output.add(newText);
         }
 
         return output;
@@ -172,6 +116,10 @@ public class GroupChat {
         return data;
     }
 
-
+    public static void displayOutput(List<String> output) {
+        for(String s : output) {
+            System.out.println(s);
+        }
+    }
 
 }
