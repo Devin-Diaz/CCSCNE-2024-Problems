@@ -1,41 +1,66 @@
 package adding_up_problem;
 import java.util.*;
 
+/**
+ * This program calculates the length of the longest consecutive sequence of
+ * integers that sums up to the given input number.
+ */
 public class AddingUp {
+
+    /**
+     * The main method of the program.
+     *
+     * @param args The command-line arguments (unused).
+     */
     public static void main(String[] args) {
-        Scanner scnr = new Scanner(System.in);
-        List<Integer> inputs = inputToList(scnr);
-        long time = System.currentTimeMillis();
-        for (Integer num: inputs) {
-            int max = 1;
-            for (int i = 1; i < num; i++) {
-                for (int j = 0; sum(i, i + j) <= num; j++) {
-                    if (sum(i, i + j) == num) {
-                        max = Math.max(max, j + 1);
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> inputNumbers = readInputToList(scanner);
+
+        for (int targetNumber : inputNumbers) {
+            int maxSequenceLength = 1;
+            for (int start = 1; start < targetNumber; start++) {
+                for (int termCount = 0; sumOfSequence(start, start + termCount) <= targetNumber; termCount++) {
+                    if (sumOfSequence(start, start + termCount) == targetNumber) {
+                        maxSequenceLength = Math.max(maxSequenceLength, termCount + 1);
                     }
                 }
             }
-            System.out.println(max);
+            System.out.println(maxSequenceLength);
         }
-        System.out.println(System.currentTimeMillis() - time);
-        scnr.close();
+
+        scanner.close();
     }
-    private static int sum(int start, int stop) {
-        // Returns the sum of the sequence of numbers from start to stop, inclusive.
-        int sum1 = (stop * (stop + 1) / 2);
-        int sum2 = (start * (start - 1) / 2);
-        return sum1 - sum2;
+
+    /**
+     * Calculates the sum of the sequence of numbers from start to stop, inclusive.
+     *
+     * @param start The starting number of the sequence.
+     * @param stop  The ending number of the sequence.
+     * @return The sum of the sequence from start to stop.
+     */
+    private static int sumOfSequence(int start, int stop) {
+        int sumStartToStop = (stop * (stop + 1) / 2);
+        int sumStartMinusOne = (start * (start - 1) / 2);
+        return sumStartToStop - sumStartMinusOne;
     }
-    private static List<Integer> inputToList(Scanner scnr) {
-        // Adds input integers to a list for later processing. Terminates when -1 is entered.
-        List<Integer> out = new ArrayList<>();
-        while (scnr.hasNext()) {
-            int temp = scnr.nextInt();
-            if (temp == -1) {
+
+    /**
+     * Reads input integers from the given Scanner and adds them to a list for
+     * later processing. The input terminates when -1 is entered.
+     *
+     * @param scanner The Scanner object for reading input.
+     * @return A list of integers read from the input.
+     */
+    private static List<Integer> readInputToList(Scanner scanner) {
+        List<Integer> inputList = new ArrayList<>();
+        while (scanner.hasNext()) {
+            int inputNumber = scanner.nextInt();
+            if (inputNumber == -1) {
                 break;
             }
-            out.add(temp);
+            inputList.add(inputNumber);
         }
-        return out;
+        return inputList;
     }
+
 }

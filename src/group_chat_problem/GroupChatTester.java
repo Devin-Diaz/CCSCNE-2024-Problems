@@ -84,6 +84,7 @@ public class GroupChatTester {
                     int translatedTime = originalTime + baseTimeZone;
                     if(translatedTime <= 0) translatedTime += 12;
 
+                    // h:mm = parsedTime[0]:parsedTime[1]
                     sb.append(translatedTime).append(":").append(parsedTime[1]);
                     parsedText[i] = sb.toString();
                 }
